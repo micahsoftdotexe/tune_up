@@ -1,0 +1,1 @@
+docker exec database_docker-postgres-1 pgloader mysql://user:password@mariadb:3306/order postgresql://postgres:postgres@localhost:5432/order
