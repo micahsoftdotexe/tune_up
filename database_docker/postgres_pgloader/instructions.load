@@ -1,0 +1,4 @@
+LOAD DATABASE
+    FROM mysql://user:password@mariadb:3306/order 
+    INTO postgresql://postgres:postgres@localhost:5432/order
+ALTER schema 'order' rename to 'public';
