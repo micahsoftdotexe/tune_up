@@ -56,7 +56,7 @@ defmodule TuneUp.Accounts.User do
   defp validate_password(changeset, opts) do
     changeset
     |> validate_required([:password])
-    |> validate_length(:password, min: 12, max: 72)
+    |> validate_length(:password, min: 8, max: 72)
     # Examples of additional password validation:
     # |> validate_format(:password, ~r/[a-z]/, message: "at least one lower case character")
     # |> validate_format(:password, ~r/[A-Z]/, message: "at least one upper case character")
@@ -158,8 +158,7 @@ defmodule TuneUp.Accounts.User do
   defp update_password?(id, password, hashed_password) do
     # update to Argon2
     if Bcrypt.verify_pass(password, String.replace(hashed_password, "$2y$", "$2b$")) do
-      password_changeset(TuneUp.Accounts.get_user!(id), %{password: password, password_confirmation: password}, hash_password: true)
-      true
+      password_changeset(TuneUp.Accounts.get_user!(id), %{password: password, password_confirmation: password}, hash_password: true) |> TuneUp.Repo.update!()
     else
       false
     end
