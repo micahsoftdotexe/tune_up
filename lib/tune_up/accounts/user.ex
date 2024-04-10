@@ -11,6 +11,8 @@ defmodule TuneUp.Accounts.User do
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
+    many_to_many :roles, TuneUp.Accounts.Role, join_through: "users_roles"
+    many_to_many :permissions, TuneUp.Accounts.Permission, join_through: "users_permissions"
 
     timestamps(type: :utc_datetime)
   end
@@ -41,8 +43,21 @@ defmodule TuneUp.Accounts.User do
   def registration_changeset(user, attrs, opts \\ []) do
     user
     |> cast(attrs, [:email, :password])
+    |> put_assoc(:roles, Map.get(attrs, :roles, []))
+    |> put_assoc(:permissions, Map.get(attrs, :permissions, []))
     |> validate_email(opts)
     |> validate_password(opts)
+  end
+
+  def roles_changeset(user, attrs) do
+    user
+    |> cast(attrs, [])
+    |> put_assoc(:roles, Map.get(attrs, :roles, []))
+  end
+
+  def permissions_changeset(user, attrs) do
+    user
+    |> put_assoc(:permissions, Map.get(attrs, :permissions, []))
   end
 
   defp validate_email(changeset, opts) do

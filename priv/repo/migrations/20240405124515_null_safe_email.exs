@@ -15,7 +15,6 @@ defmodule TuneUp.Repo.Migrations.NullSafeEmail do
 
   def add_email(user) do
     {id, username} = user
-    email = IO.gets("Enter email for #{username}: ")
-    execute "UPDATE users SET email = '#{String.trim(email)}' WHERE id = #{id}"
+    execute "UPDATE users SET email = 'autofill#{username}@test.com' WHERE id = #{id}"
   end
 end

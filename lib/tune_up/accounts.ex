@@ -126,6 +126,18 @@ defmodule TuneUp.Accounts do
     User.email_changeset(user, attrs, validate_email: false)
   end
 
+  def add_user_roles(user, role) do
+    user
+    |> User.roles_changeset(%{roles: role})
+    |> Repo.update()
+  end
+
+  def add_user_permissions(user, permissions) do
+    user
+    |> User.permissions_changeset(%{permissions: permissions})
+    |> Repo.update()
+  end
+
   @doc """
   Emulates that the email will change without actually changing
   it in the database.
