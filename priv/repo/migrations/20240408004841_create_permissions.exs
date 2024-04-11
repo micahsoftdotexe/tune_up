@@ -11,8 +11,8 @@ defmodule TuneUp.Repo.Migrations.CreatePermissions do
     end
     create unique_index(:permissions, [:name])
     create table(:users_permissions, primary_key: false) do
-      add :permission_id, references(:permissions, on_delete: :delete_all)
-      add :user_id, references(:users, on_delete: :delete_all)
+      add :permission_id, references(:permissions)
+      add :user_id, references(:users)
     end
     create unique_index(:users_permissions, [:user_id, :permission_id])
   end
