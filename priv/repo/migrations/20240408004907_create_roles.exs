@@ -7,6 +7,7 @@ defmodule TuneUp.Repo.Migrations.CreateRoles do
 
       timestamps(type: :utc_datetime)
     end
+    create unique_index(:roles, [:name])
     create table(:users_roles) do
       add :role_id, references(:roles, on_delete: :delete_all)
       add :user_id, references(:users, on_delete: :delete_all)
