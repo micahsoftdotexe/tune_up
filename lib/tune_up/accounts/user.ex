@@ -13,6 +13,7 @@ defmodule TuneUp.Accounts.User do
     field :confirmed_at, :naive_datetime
     many_to_many :roles, TuneUp.Accounts.Role, join_through: "users_roles"
     many_to_many :permissions, TuneUp.Accounts.Permission, join_through: "users_permissions"
+    has_many :notes, TuneUp.Notes.Note, foreign_key: :created_by
 
     timestamps(type: :utc_datetime)
   end

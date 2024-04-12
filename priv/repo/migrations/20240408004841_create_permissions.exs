@@ -3,8 +3,8 @@ defmodule TuneUp.Repo.Migrations.CreatePermissions do
 
   def change do
     create table(:permissions) do
-      add :name, :string
-      add :description, :string
+      add :name, :string, null: false
+      add :description, :string, null: false
       add :hidden, :boolean, default: false
 
       timestamps(type: :utc_datetime)

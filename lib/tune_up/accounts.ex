@@ -411,7 +411,8 @@ defmodule TuneUp.Accounts do
       permissions =
         user
         |> Repo.preload([roles: [:permissions]])
-        |> Map.get(:roles) |> Enum.map(fn(x) -> x.permissions end)
+        |> Map.get(:roles)
+        |> Enum.map(fn(x) -> x.permissions end)
         |> List.flatten
       permission = user
       |> Repo.preload(:permissions)
