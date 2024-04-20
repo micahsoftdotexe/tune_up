@@ -68,6 +68,8 @@ defmodule TuneUpWeb.Router do
       on_mount: [{TuneUpWeb.UserAuth, :ensure_authenticated}] do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
+      live "/orders", Orders.OrderListLive, :index
+
     end
   end
 
@@ -82,4 +84,8 @@ defmodule TuneUpWeb.Router do
       live "/users/confirm", UserConfirmationInstructionsLive, :new
     end
   end
+
+  # scope "/", TuneUpWeb do
+  #   pipe_through [:browser, :require_authenticated_user] #
+  # end
 end
