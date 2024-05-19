@@ -6,11 +6,11 @@ defmodule TuneUp.Orders.Order do
     field :date, :date
     field :odometer_reading, :integer
     field :stage, :integer
-    field :tax, :float
+    field :tax, :decimal
     field :amount_paid, :float
     field :paid_in_full, :boolean, default: false
     belongs_to :customer, TuneUp.Customers.Customer
-    belongs_to :automobiles, TuneUp.Customers.Automobile
+    belongs_to :automobile, TuneUp.Customers.Automobile
     has_many :labor, TuneUp.Orders.Labor
 
     timestamps(type: :utc_datetime)

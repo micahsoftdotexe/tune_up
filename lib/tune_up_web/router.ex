@@ -86,6 +86,12 @@ defmodule TuneUpWeb.Router do
   end
 
   # scope "/", TuneUpWeb do
+  #   pipe_through [:browser]
+  #   live_session :default do
+  #   end
+  # end
+
+  # scope "/", TuneUpWeb do
   #   pipe_through [:browser, :require_authenticated_user] #
   # end
 end
