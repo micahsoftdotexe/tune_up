@@ -20,7 +20,25 @@ defmodule TuneUp.Customers.Customer do
   @doc false
   def changeset(customer, attrs) do
     customer
-    |> cast(attrs, [:first_name, :last_name, :street_address, :city, :zip, :state, :phone_number_1, :phone_number_2])
-    |> validate_required([:first_name, :last_name, :street_address, :city, :zip, :state, :phone_number_1, :phone_number_2])
+    |> cast(attrs, [
+      :first_name,
+      :last_name,
+      :street_address,
+      :city,
+      :zip,
+      :state,
+      :phone_number_1,
+      :phone_number_2
+    ])
+    |> validate_required([
+      :first_name,
+      :last_name,
+      :street_address,
+      :city,
+      :zip,
+      :state,
+      :phone_number_1,
+      :phone_number_2
+    ])
   end
 end

@@ -380,6 +380,7 @@ defmodule TuneUp.Accounts do
       {:error, :user, changeset, _} -> {:error, changeset}
     end
   end
+
   @doc """
   Checks if the user has the given role.
   ## Examples
@@ -390,12 +391,15 @@ defmodule TuneUp.Accounts do
       false
   """
   def check_user_role(user, role_name) do
-    role = user
-    |> Repo.preload([:roles])
-    |> Map.get(:roles)
-    |> Enum.find( nil, fn(role) -> role.name == role_name end)
+    role =
+      user
+      |> Repo.preload([:roles])
+      |> Map.get(:roles)
+      |> Enum.find(nil, fn role -> role.name == role_name end)
+
     !!role
   end
+
   @doc """
   Checks if the user has the given permission.
   ## Examples
@@ -405,20 +409,23 @@ defmodule TuneUp.Accounts do
       false
   """
   def check_user_permission(user, permission_name) do
-    if check_user_role( user, "admin" ) do
+    if check_user_role(user, "admin") do
       true
     else
       permissions =
         user
-        |> Repo.preload([roles: [:permissions]])
+        |> Repo.preload(roles: [:permissions])
         |> Map.get(:roles)
-        |> Enum.map(fn(x) -> x.permissions end)
-        |> List.flatten
-      permission = user
-      |> Repo.preload(:permissions)
-      |> Map.get(:permissions)
-      |> Enum.concat(permissions)
-      |> Enum.find( nil, fn(permission) -> permission.name == permission_name end)
+        |> Enum.map(fn x -> x.permissions end)
+        |> List.flatten()
+
+      permission =
+        user
+        |> Repo.preload(:permissions)
+        |> Map.get(:permissions)
+        |> Enum.concat(permissions)
+        |> Enum.find(nil, fn permission -> permission.name == permission_name end)
+
       !!permission
     end
   end

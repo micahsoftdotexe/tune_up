@@ -10,7 +10,6 @@ defmodule TuneUp.Orders.Part do
     field :part_number, :string
     belongs_to :order, TuneUp.Orders.Order
     belongs_to :quantity_type, TuneUp.Orders.QuantityType
-
   end
 
   @doc false

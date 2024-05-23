@@ -8,17 +8,17 @@
         TuneUp
       </p>
     </div>
-    <%= if @current_user do%>
+    <%= if @current_user do %>
       <div class="flex items-center gap-4 font-semibold leading-6 text-zinc-900">
         <a href={~p"/users/settings"} class="hover:text-zinc-700">
           <%= @current_user.username %>
         </a>
         <.link
-            href={~p"/users/log_out"}
-            method="delete"
-            class="rounded-lg bg-zinc-100 px-2 py-1 hover:bg-zinc-200/80"
-          >
-            Log out
+          href={~p"/users/log_out"}
+          method="delete"
+          class="rounded-lg bg-zinc-100 px-2 py-1 hover:bg-zinc-200/80"
+        >
+          Log out
         </.link>
         <%!-- <a
           href="https://hexdocs.pm/phoenix/overview.html"
@@ -42,4 +42,4 @@
     <.flash_group flash={@flash} />
     <%= @inner_content %>
   </div>
-</main> 
+</main>

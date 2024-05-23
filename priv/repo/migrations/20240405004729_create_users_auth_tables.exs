@@ -17,6 +17,7 @@ defmodule TuneUp.Repo.Migrations.CreateUsersAuthTables do
       # timestamps(type: :utc_datetime)
       timestamps(type: :utc_datetime, null: true)
     end
+
     rename table(:users), :password, to: :hashed_password
 
     create unique_index(:users, [:email])

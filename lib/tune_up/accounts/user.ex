@@ -157,13 +157,14 @@ defmodule TuneUp.Accounts.User do
   """
   def valid_password?(%TuneUp.Accounts.User{id: id, hashed_password: hashed_password}, password)
       when is_binary(hashed_password) and byte_size(password) > 0 do
-      # check if old bcrypt password
-      if String.contains?(hashed_password, "$2y$") do
-        # Bcrypt.verify_pass(password, String.replace(hashed_password, "$2y$", "$2b$"))
-        update_password?(id, password, hashed_password) # update to Argon2
-      else
-        Argon2.verify_pass(password, hashed_password)
-      end
+    # check if old bcrypt password
+    if String.contains?(hashed_password, "$2y$") do
+      # Bcrypt.verify_pass(password, String.replace(hashed_password, "$2y$", "$2b$"))
+      # update to Argon2
+      update_password?(id, password, hashed_password)
+    else
+      Argon2.verify_pass(password, hashed_password)
+    end
   end
 
   def valid_password?(_, _) do
@@ -174,12 +175,16 @@ defmodule TuneUp.Accounts.User do
   defp update_password?(id, password, hashed_password) do
     # update to Argon2
     if Bcrypt.verify_pass(password, String.replace(hashed_password, "$2y$", "$2b$")) do
-      password_changeset(TuneUp.Accounts.get_user!(id), %{password: password, password_confirmation: password}, hash_password: true) |> TuneUp.Repo.update!()
+      password_changeset(
+        TuneUp.Accounts.get_user!(id),
+        %{password: password, password_confirmation: password},
+        hash_password: true
+      )
+      |> TuneUp.Repo.update!()
     else
       false
     end
   end
-
 
   @doc """
   Validates the current password otherwise adds an error to the changeset.
