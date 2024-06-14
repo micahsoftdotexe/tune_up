@@ -17,6 +17,13 @@ defmodule TuneUpWeb.Orders.OrderListLive do
         {"date", "Date"},
         {"stage", "Stage"}
       ]}
+      filters={[
+        {"full_name", "string"},
+        {"make", "string"},
+        {"model", "string"},
+        {"date", "date"},
+        {"stage", "string"}
+      ]}
       paginate={true}
       page={@order_information.page_number}
       page_size={@order_information.page_size}
@@ -38,7 +45,7 @@ defmodule TuneUpWeb.Orders.OrderListLive do
      )}
   end
 
-  @spec handle_info(any(), any()) :: none()
+  @spec handle_info({:changed_page, any()}, any()) :: {:noreply, any()}
   def handle_info({:changed_page, page}, socket) do
     {:noreply,
      socket

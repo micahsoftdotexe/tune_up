@@ -13,6 +13,9 @@ defmodule TuneUpWeb.Datatable do
           </tr>
         </thead>
         <tbody>
+          <%= for {col,_title} <- @cols do %>
+            <td><%= Map.get(@filters, String.to_atom(col)) %></td>
+          <% end %>
           <%= for row <- @rows do %>
             <tr>
               <%= for {col,_title} <- @cols do %>
