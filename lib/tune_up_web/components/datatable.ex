@@ -1,9 +1,25 @@
-defmodule TuneUpWeb.Datatable do
-  use Phoenix.LiveComponent
+defmodule TuneUpWeb.Components.Datatable do
+  use TuneUpWeb, :live_component
 
   def render(assigns) do
     ~H"""
     <div class="overflow-x-auto">
+      <div class="flex">
+        <%= for {col,title} <- @cols do %>
+          <%!-- <th><%= title %></th> --%>
+          <div class="flex-1">
+            <%= if Map.get(@filters, col) == "string" do %>
+              <label for={col}><%= title %></label>
+              <input id={col} type="text" class="input input-bordered" />
+            <% end %>
+            <%= if Map.get(@filters, col) == "date" do %>
+              <.date_picker id={col} label={title} phx-target={@myself} />
+            <% end %>
+          </div>
+        <% end %>
+        <%!-- <div class="flex-1">01</div> --%>
+        <%!-- <div class="flex-1">02</div> --%>
+      </div>
       <table class="table table-lg">
         <thead>
           <tr>
@@ -13,9 +29,6 @@ defmodule TuneUpWeb.Datatable do
           </tr>
         </thead>
         <tbody>
-          <%= for {col,_title} <- @cols do %>
-            <td><%= Map.get(@filters, String.to_atom(col)) %></td>
-          <% end %>
           <%= for row <- @rows do %>
             <tr>
               <%= for {col,_title} <- @cols do %>

@@ -1,5 +1,5 @@
 defmodule TuneUpWeb.Orders.OrderListLive do
-  alias TuneUpWeb.Datatable
+  alias TuneUpWeb.Components.Datatable
   alias TuneUp
   use TuneUpWeb, :live_view
 
@@ -17,13 +17,15 @@ defmodule TuneUpWeb.Orders.OrderListLive do
         {"date", "Date"},
         {"stage", "Stage"}
       ]}
-      filters={[
-        {"full_name", "string"},
-        {"make", "string"},
-        {"model", "string"},
-        {"date", "date"},
-        {"stage", "string"}
-      ]}
+      filters={
+        %{
+          "full_name" => "string",
+          "make" => "string",
+          "model" => "string",
+          "date" => "date",
+          "stage" => "string"
+        }
+      }
       paginate={true}
       page={@order_information.page_number}
       page_size={@order_information.page_size}
