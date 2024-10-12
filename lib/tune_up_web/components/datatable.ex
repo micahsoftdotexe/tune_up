@@ -13,7 +13,12 @@ defmodule TuneUpWeb.Components.Datatable do
               <input id={col} type="text" class="input input-bordered" />
             <% end %>
             <%= if Map.get(@filters, col) == "date" do %>
-              <.date_picker id={col} label={title} phx-target={@myself} />
+            <div id="date-pickr" phx-update="ignore">
+              <div id="starts-at-pickr" class="flatpickr" phx-hook="Pickr" data-pickr-alt-format="d M Y">
+                <label for="starts-at">Starts at</label>
+                <input type="text" id="starts-at" name="pickr[starts_at]" placeholder="Select Start Date.." data-input />
+              </div>
+            </div>
             <% end %>
           </div>
         <% end %>

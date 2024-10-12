@@ -11,5 +11,8 @@
   "description": "",
   "devDependencies": {
     "daisyui": "^4.11.1"
+  },
+  "dependencies": {
+    "flatpickr": "^4.6.13"
   }
 }

@@ -6,6 +6,19 @@ defmodule TuneUpWeb.Orders.OrderListLive do
   def render(assigns) do
     ~H"""
     <p>Order List</p>
+    <form id="pickr-form" action="#" phx-change="validate">
+      <div id="starts-at-pickr" phx-update="ignore" phx-hook="Pickr" data-pickr-alt-format="d M Y">
+        <label for="starts-at">Starts at</label>
+        <input
+          type="text"
+          class="flatpickr flatpickr-input"
+          id="starts-at"
+          name="pickr[starts_at]"
+          placeholder="Select Start Date.."
+          data-input
+        />
+      </div>
+    </form>
     <.live_component
       id="123"
       module={Datatable}
